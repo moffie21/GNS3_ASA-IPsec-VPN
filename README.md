@@ -1,4 +1,5 @@
 # GNS3_ASA-IPsec-VPN
+### For educational purposes
 Topology with ASA and IPsec VPN configurations
 
 Protocols Implemented:
