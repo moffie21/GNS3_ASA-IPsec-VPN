@@ -2,7 +2,7 @@
 ### For educational purposes
 
 ### DESCRIPTION
-Built a logical topology featuring ASA and IPsec VPN configurations in GNS3.
+Built a logical topology featuring ASA and IPsec VPN configurations in GNS3 lab environment.
 
 ### GOALS
 - Allow DMZ devices to ping devices in LA network.
