@@ -38,7 +38,7 @@ line vty 0 4
 !
 
 ====================================
-SD_ASA (5506) (L3) (Active) device
+SD_ASA (5506) (L3) device
 ====================================
 enable password P@ssw0rd
 !
