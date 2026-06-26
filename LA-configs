@@ -49,10 +49,12 @@ hostname LA_3650_WAN
 no ip routing
 !
 
-### LA_ASA1 (5506) (L3) (Active) device
+====================================
+LA_ASA1 (5506) (L3) (Active) device
+====================================
 enable password P@ssw0rd
 !
-hostname LA-ASA1
+hostname LA_ASA1
 domain-name CIS.EDU
 !  
 interface g0/0
@@ -211,7 +213,7 @@ LA_ASA2 (5506) (L3) (Standby) device
 ====================================
 enable password P@ssw0rd
 !
-hostname LA-ASA2
+hostname LA_ASA2
 domain-name CIS.EDU
 !
 interface g0/0
@@ -424,7 +426,7 @@ ip 192.168.250.254/24 192.168.250.1
 ====================================
 LA_2960 (L2) (VTP Client) device
 ====================================
-hostname LA-2960
+hostname LA_2960
 no ip routing
 !
 interface vlan 10
