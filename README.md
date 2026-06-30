@@ -57,6 +57,7 @@ Built and configured a logical topology featuring ASA and IPsec VPN protocols in
 - MI Network
 
 ==ISP_3650_R (L3) device==
+```
 hostname ISP_3650_R
 no ip routing
 !
@@ -77,7 +78,7 @@ int g1/0
  no shutdown
 !
 !
-! **SSH Access**
+! SSH Access
 !
 ip domain-name CIS.EDU
 crypto key generate rsa modulus 2048
@@ -88,21 +89,25 @@ line vty 0 4
  login local
  transport input ssh
 !
+```
 
 ### CONFIGURATIONS: LA NETWORK
 ==LA_3650_WAN (L2) device==
+```
 hostname LA_3650_WAN
 no ip routing
 !
+```
 
 ==LA_ASA1 (5506) (L3) (Active) device==
+```
 enable password P@ssw0rd
 !
 hostname LA_ASA1
 domain-name CIS.EDU
 !  
 interface g0/0
- no shut
+ no shutdown
 !
 interface g0/0.250
  vlan 250
@@ -132,7 +137,7 @@ interface g0/6
 route outside 0.0.0.0 0.0.0.0 2.2.10.1
 !
 !
-! **Allowing ICMP through ASA**
+! Allowing ICMP through ASA
 !
 policy-map global_policy
  class inspection_default
@@ -145,7 +150,7 @@ policy-map global_policy
 management-access inside
 !
 !
-! **Failover**
+! Failover
 !
 failover lan unit primary
 failover lan interface FAILOVER g0/5
@@ -157,7 +162,7 @@ failover
 prompt hostname priority state
 !
 !
-! **Phase 1 (IKEv1)**
+! Phase 1 (IKEv1)
 !
 crypto ikev1 enable outside
 !
@@ -177,7 +182,7 @@ tunnel-group 33.33.30.66 ipsec-attributes
  ikev1 pre-shared-key LA10NY130
 !
 !
-! **Phase 2 (IPsec)**
+! Phase 2 (IPsec)
 !
 object network N_10.10.0.0_16
  subnet 10.10.0.0 255.255.0.0
@@ -191,7 +196,7 @@ access-list IPSEC_NY_ACL extended permit ip object N_10.10.0.0_16 object N_10.13
 access-list IPSEC_SD_ACL extended permit ip object N_10.10.0.0_16 object N_10.20.0.0_16
 !
 !
-! **Auto NAT**
+! Auto NAT
 !
 object network INSIDE_LA
  subnet 10.10.0.0 255.255.0.0
@@ -206,14 +211,14 @@ object network LA_L3L2
  nat (inside,outside) static 1.1.1.5
 !
 !
-! **Allow ICMP Echo from DMZ to Inside**
+! Allow ICMP Echo from DMZ to Inside
 !
 access-list DMZ_INSIDE extended permit icmp host 192.168.250.10 10.10.0.0 255.255.0.0
 !
 access-group DMZ_INSIDE in interface dmz
 !
 !
-! **Allow SSH from Outside to 3650_DMZ and LA_3650**
+! Allow SSH from Outside to 3650_DMZ and LA_3650
 !
 access-list INBOUND extended permit tcp any host 1.1.1.10 eq 22
 access-list INBOUND extended permit tcp any host 1.1.1.5 eq 22
@@ -221,7 +226,7 @@ access-list INBOUND extended permit tcp any host 1.1.1.5 eq 22
 access-group INBOUND in interface outside
 !
 !
-! **NAT Exemption (No NAT)**
+! NAT Exemption (No NAT)
 !
 nat (inside,outside) source static N_10.10.0.0_16 N_10.10.0.0_16 destination static N_10.20.0.0_16 N_10.20.0.0_16 no-proxy-arp route-lookup
 nat (inside,outside) source static N_10.10.0.0_16 N_10.10.0.0_16 destination static N_10.130.0.0_16 N_10.130.0.0_16 no-proxy-arp route-lookup
@@ -245,14 +250,16 @@ crypto map IPSEC_MAP interface outside
 same-security-traffic permit intra-interface
 !
 !
-! **OSPF**
+! OSPF
 !
 router ospf 10
  network 10.10.250.0 255.255.255.248 area 0
  network 192.168.250.0 255.255.255.0 area 0
 !
+```
 
 ==LA_ASA2 (5506) (L3) (Standby) device==
+```
 enable password P@ssw0rd
 !
 hostname LA_ASA2
@@ -287,7 +294,7 @@ interface g0/6
  no shutdown
 !
 !
-! **Failover**
+! Failover
 !
 failover lan unit secondary
 failover lan interface FAILOVER g0/5
@@ -297,15 +304,17 @@ failover interface ip STATEFUL 172.16.1.1 255.255.255.0 standby 172.16.1.2
 failover key CIS101101
 failover
 !
+```
 
 ==LA_3650 (L3/L2) (VTP Server) (Inter-VLAN Routing) device==
+```
 hostname LA_3650
 ip routing
 !
 ip route 0.0.0.0 0.0.0.0 10.10.250.2
 !
 !
-! **VLANs**
+! VLANs
 !
 vlan 10
  name Management
@@ -320,14 +329,14 @@ vlan 50
 vlan 250
 !
 !
-! **VTP**
+! VTP
 !
 vtp mode server
 vtp domain LA
 vtp password cisco
 !
 !
-! **Inter-VLAN Routing**
+! Inter-VLAN Routing
 !
 interface vlan 10
  description Mgmt VLAN
@@ -385,94 +394,101 @@ interface g3/0
  switchport mode access
  switchport access vlan 30
  no shutdown
-!  
-!  
-! **OSPF**  
-!  
-router ospf 10  
- network 10.10.0.0 0.0.255.255 area 0  
- passive-interface vlan 10  
- passive-interface vlan 20  
- passive-interface vlan 30  
- passive-interface vlan 40  
- passive-interface vlan 50  
-!  
-!  
-! **SSH Access**  
-!  
-ip domain-name CIS.EDU  
-crypto key generate rsa modulus 2048  
-!  
-username admin privilege 15 secret LabPass061  
-!  
-line vty 0 4  
- login local  
- transport input ssh  
-!  
-  
-==LA_Server_20 Server VPC==  
-set pcname LA_Server_20  
-ip 10.10.64.254/23 10.10.64.1  
-  
-  
-==LA_IT_30 VPC==  
-set pcname LA_IT_30  
-ip 10.10.96.100/23 10.10.96.1  
-  
-  
-==LA_3650_DMZ (L2 only) device==  
-hostname LA_3650_DMZ  
-no ip routing  
-!  
-int g0/0  
- no shutdown  
-int g1/0  
- no shutdown  
-int g2/0  
- no shutdown  
-!  
-int vlan 1  
- ip address 192.168.250.10 255.255.255.0  
- no shut  
-!  
-ip default-gateway 192.168.250.1  
-!  
-!  
-! **SSH Access**  
-!  
-ip domain-name CIS.EDU  
-crypto key generate rsa modulus 2048  
-!  
-username admin privilege 15 secret LabPass061  
-!  
-line vty 0 4  
- login local  
- transport input ssh  
-!  
-  
-==DMZ_SRV Server VPC==  
-set pcname DMZ_SRV  
-ip 192.168.250.254/24 192.168.250.1  
-  
-  
-==LA_2960 (L2) (VTP Client) device==  
-hostname LA_2960  
-no ip routing  
-!  
-interface vlan 10  
- ip addr 10.10.32.10 255.255.255.128  
- no shutdown  
- ip default-gateway 10.10.32.1  
-!  
-!  
-! **VTP**  
-!  
+!
+!
+! OSPF
+!
+router ospf 10
+ network 10.10.0.0 0.0.255.255 area 0
+ passive-interface vlan 10
+ passive-interface vlan 20
+ passive-interface vlan 30
+ passive-interface vlan 40
+ passive-interface vlan 50
+!
+!
+! SSH Access
+!
+ip domain-name CIS.EDU
+crypto key generate rsa modulus 2048
+!
+username admin privilege 15 secret LabPass061
+!
+line vty 0 4
+ login local
+ transport input ssh
+!
+```
+
+==LA_Server_20 Server VPC==
+```
+set pcname LA_Server_20
+ip 10.10.64.254/23 10.10.64.1
+```
+
+==LA_IT_30 VPC==
+```
+set pcname LA_IT_30
+ip 10.10.96.100/23 10.10.96.1
+```
+
+==LA_3650_DMZ (L2 only) device==
+```
+hostname LA_3650_DMZ
+no ip routing
+!
+int g0/0
+ no shutdown
+int g1/0
+ no shutdown
+int g2/0
+ no shutdown
+!
+int vlan 1
+ ip address 192.168.250.10 255.255.255.0
+ no shutdown
+!
+ip default-gateway 192.168.250.1
+!
+!
+! SSH Access
+!
+ip domain-name CIS.EDU
+crypto key generate rsa modulus 2048
+!
+username admin privilege 15 secret LabPass061
+!
+line vty 0 4
+ login local
+ transport input ssh
+!
+```
+
+==DMZ_SRV Server VPC==
+```
+set pcname DMZ_SRV
+ip 192.168.250.254/24 192.168.250.1
+```
+
+==LA_2960 (L2) (VTP Client) device==
+```
+hostname LA_2960
+no ip routing
+!
+interface vlan 10
+ ip addr 10.10.32.10 255.255.255.128
+ no shutdown
+ ip default-gateway 10.10.32.1
+!
+!
+! VTP
+!
 vtp mode client
 vtp domain LA
 vtp password cisco
 !
 !
-! **Inter-VLAN Routing**
+! Inter-VLAN Routing
 !
 interface g1/0
  switchport trunk encapsulation dot1q
@@ -489,16 +505,16 @@ interface g3/0
  switchport access vlan 50
  no shutdown
 !
+```
 
-====================================
-LA_Users_40 VPC
-====================================
+==LA_Users_40 VPC==
+```
 set pcname LA_Users_40
 ip 10.10.160.101/20 10.10.160.1
+```
 
-
-====================================
-LA_Wireless_50 VPC
-====================================
+==LA_Wireless_50 VPC==
+```
 set pcname LA_Wireless_50
 ip 10.10.192.101/19 10.10.192.1
+```
