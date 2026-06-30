@@ -56,7 +56,7 @@ Built and configured a logical topology featuring ASA and IPsec VPN protocols in
 - NY Network
 - MI Network
 
-==ISP_3650_R (L3) device==
+**ISP_3650_R (L3) device**
 ```
 hostname ISP_3650_R
 no ip routing
@@ -92,14 +92,14 @@ line vty 0 4
 ```
 
 ### CONFIGURATIONS: LA NETWORK
-==LA_3650_WAN (L2) device==
+**LA_3650_WAN (L2) device**
 ```
 hostname LA_3650_WAN
 no ip routing
-!
 ```
 
-==LA_ASA1 (5506) (L3) (Active) device==
+  
+**LA_ASA1 (5506) (L3) (Active) device**
 ```
 enable password P@ssw0rd
 !
@@ -145,7 +145,7 @@ policy-map global_policy
   inspect icmp error
 !
 !
-! **Allow ICMP to ASA's inside interface from another site**
+! Allow ICMP to ASA's inside interface from another site
 !
 management-access inside
 !
@@ -255,10 +255,10 @@ same-security-traffic permit intra-interface
 router ospf 10
  network 10.10.250.0 255.255.255.248 area 0
  network 192.168.250.0 255.255.255.0 area 0
-!
 ```
 
-==LA_ASA2 (5506) (L3) (Standby) device==
+  
+**LA_ASA2 (5506) (L3) (Standby) device**
 ```
 enable password P@ssw0rd
 !
@@ -303,10 +303,10 @@ failover link STATEFUL g0/6
 failover interface ip STATEFUL 172.16.1.1 255.255.255.0 standby 172.16.1.2
 failover key CIS101101
 failover
-!
 ```
 
-==LA_3650 (L3/L2) (VTP Server) (Inter-VLAN Routing) device==
+  
+**LA_3650 (L3/L2) (VTP Server) (Inter-VLAN Routing) device**
 ```
 hostname LA_3650
 ip routing
@@ -417,22 +417,24 @@ username admin privilege 15 secret LabPass061
 line vty 0 4
  login local
  transport input ssh
-!
 ```
 
-==LA_Server_20 Server VPC==
+  
+**LA_Server_20 Server VPC**
 ```
 set pcname LA_Server_20
 ip 10.10.64.254/23 10.10.64.1
 ```
 
-==LA_IT_30 VPC==
+  
+**LA_IT_30 VPC**
 ```
 set pcname LA_IT_30
 ip 10.10.96.100/23 10.10.96.1
 ```
 
-==LA_3650_DMZ (L2 only) device==
+  
+**LA_3650_DMZ (L2 only) device**
 ```
 hostname LA_3650_DMZ
 no ip routing
@@ -464,13 +466,15 @@ line vty 0 4
 !
 ```
 
-==DMZ_SRV Server VPC==
+  
+**DMZ_SRV Server VPC**
 ```
 set pcname DMZ_SRV
 ip 192.168.250.254/24 192.168.250.1
 ```
 
-==LA_2960 (L2) (VTP Client) device==
+  
+**LA_2960 (L2) (VTP Client) device**
 ```
 hostname LA_2960
 no ip routing
@@ -507,13 +511,15 @@ interface g3/0
 !
 ```
 
-==LA_Users_40 VPC==
+   
+**LA_Users_40 VPC**
 ```
 set pcname LA_Users_40
 ip 10.10.160.101/20 10.10.160.1
 ```
 
-==LA_Wireless_50 VPC==
+  
+**LA_Wireless_50 VPC**
 ```
 set pcname LA_Wireless_50
 ip 10.10.192.101/19 10.10.192.1
