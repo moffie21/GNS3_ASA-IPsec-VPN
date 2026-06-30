@@ -26,13 +26,13 @@ Built and configured a logical topology featuring ASA and IPsec VPN protocols in
 - Getting NAT and ACLs correct so they don't interfere with other protocols.
 
 ### TOPOLOGY
-ISP_3650_R  ➔  LA_3650_WAN  ➔   LA_ASA1   ⤵   
-                                             LA_3650_DMZ   ➔  DMZ_SRV  
-                         (Failover) ↕      ╳  
-                                             LA_3650       ➔  LA_Server_20  
-                             ➔   LA_ASA2   ⤴              ➔  LA_IT_30  
-                                                           ➔  LA_2960         ➔  LA_Users_40  
-                                                                               ➔  LA_Wireless_50  
+ISP_3650_R    ➔    LA_3650_WAN    ➔    LA_ASA1    ⤵   
+                                                      LA_3650_DMZ   ➔  DMZ_SRV  
+                                  (Failover) ↕      ╳  
+                                                      LA_3650       ➔  LA_Server_20  
+                                   ➔    LA_ASA2    ⤴               ➔  LA_IT_30  
+                                                                    ➔  LA_2960        ➔  LA_Users_40  
+                                                                                       ➔  LA_Wireless_50  
 .  
             ➔     SD_ASA    ➔   SD_3650   ➔   SD_2960    ➔  SD_User_40  
                                                            ➔  SD_Wireless_50  
