@@ -56,9 +56,7 @@ Built and configured a logical topology featuring ASA and IPsec VPN protocols in
 - NY Network
 - MI Network
 
-====================================
-ISP_3650_R (L3) device
-====================================
+==ISP_3650_R (L3) device==
 hostname ISP_3650_R
 no ip routing
 !
@@ -92,16 +90,12 @@ line vty 0 4
 !
 
 ### CONFIGURATIONS: LA NETWORK
-====================================
-LA_3650_WAN (L2) device
-====================================
+==LA_3650_WAN (L2) device==
 hostname LA_3650_WAN
 no ip routing
 !
 
-====================================
-LA_ASA1 (5506) (L3) (Active) device
-====================================
+==LA_ASA1 (5506) (L3) (Active) device==
 enable password P@ssw0rd
 !
 hostname LA_ASA1
@@ -258,9 +252,7 @@ router ospf 10
  network 192.168.250.0 255.255.255.0 area 0
 !
 
-====================================
-LA_ASA2 (5506) (L3) (Standby) device
-====================================
+==LA_ASA2 (5506) (L3) (Standby) device==
 enable password P@ssw0rd
 !
 hostname LA_ASA2
@@ -306,9 +298,7 @@ failover key CIS101101
 failover
 !
 
-====================================
-LA_3650 (L3/L2) (VTP Server) (Inter-VLAN Routing) device
-====================================
+==LA_3650 (L3/L2) (VTP Server) (Inter-VLAN Routing) device==
 hostname LA_3650
 ip routing
 !
@@ -395,98 +385,88 @@ interface g3/0
  switchport mode access
  switchport access vlan 30
  no shutdown
-!
-!
-! **OSPF**
-!
-router ospf 10
- network 10.10.0.0 0.0.255.255 area 0
- passive-interface vlan 10
- passive-interface vlan 20
- passive-interface vlan 30
- passive-interface vlan 40
- passive-interface vlan 50
-!
-!
-! **SSH Access**
-!
-ip domain-name CIS.EDU
-crypto key generate rsa modulus 2048
-!
-username admin privilege 15 secret LabPass061
-!
-line vty 0 4
- login local
- transport input ssh
-!
-
-====================================
-LA_Server_20 Server VPC
-====================================
-set pcname LA_Server_20
-ip 10.10.64.254/23 10.10.64.1
-
-
-====================================
-LA_IT_30 VPC
-====================================
-set pcname LA_IT_30
-ip 10.10.96.100/23 10.10.96.1
-
-
-====================================
-LA_3650_DMZ (L2 only) device
-====================================
-hostname LA_3650_DMZ
-no ip routing
-!
-int g0/0
- no shutdown
-int g1/0
- no shutdown
-int g2/0
- no shutdown
-!
-int vlan 1
- ip address 192.168.250.10 255.255.255.0
- no shut
-!
-ip default-gateway 192.168.250.1
-!
-!
-! **SSH Access**
-!
-ip domain-name CIS.EDU
-crypto key generate rsa modulus 2048
-!
-username admin privilege 15 secret LabPass061
-!
-line vty 0 4
- login local
- transport input ssh
-!
-
-====================================
-DMZ_SRV Server VPC
-====================================
-set pcname DMZ_SRV
-ip 192.168.250.254/24 192.168.250.1
-
-
-====================================
-LA_2960 (L2) (VTP Client) device
-====================================
-hostname LA_2960
-no ip routing
-!
-interface vlan 10
- ip addr 10.10.32.10 255.255.255.128
- no shutdown
- ip default-gateway 10.10.32.1
-!
-!
-! **VTP**
-!
+!  
+!  
+! **OSPF**  
+!  
+router ospf 10  
+ network 10.10.0.0 0.0.255.255 area 0  
+ passive-interface vlan 10  
+ passive-interface vlan 20  
+ passive-interface vlan 30  
+ passive-interface vlan 40  
+ passive-interface vlan 50  
+!  
+!  
+! **SSH Access**  
+!  
+ip domain-name CIS.EDU  
+crypto key generate rsa modulus 2048  
+!  
+username admin privilege 15 secret LabPass061  
+!  
+line vty 0 4  
+ login local  
+ transport input ssh  
+!  
+  
+==LA_Server_20 Server VPC==  
+set pcname LA_Server_20  
+ip 10.10.64.254/23 10.10.64.1  
+  
+  
+==LA_IT_30 VPC==  
+set pcname LA_IT_30  
+ip 10.10.96.100/23 10.10.96.1  
+  
+  
+==LA_3650_DMZ (L2 only) device==  
+hostname LA_3650_DMZ  
+no ip routing  
+!  
+int g0/0  
+ no shutdown  
+int g1/0  
+ no shutdown  
+int g2/0  
+ no shutdown  
+!  
+int vlan 1  
+ ip address 192.168.250.10 255.255.255.0  
+ no shut  
+!  
+ip default-gateway 192.168.250.1  
+!  
+!  
+! **SSH Access**  
+!  
+ip domain-name CIS.EDU  
+crypto key generate rsa modulus 2048  
+!  
+username admin privilege 15 secret LabPass061  
+!  
+line vty 0 4  
+ login local  
+ transport input ssh  
+!  
+  
+==DMZ_SRV Server VPC==  
+set pcname DMZ_SRV  
+ip 192.168.250.254/24 192.168.250.1  
+  
+  
+==LA_2960 (L2) (VTP Client) device==  
+hostname LA_2960  
+no ip routing  
+!  
+interface vlan 10  
+ ip addr 10.10.32.10 255.255.255.128  
+ no shutdown  
+ ip default-gateway 10.10.32.1  
+!  
+!  
+! **VTP**  
+!  
 vtp mode client
 vtp domain LA
 vtp password cisco
