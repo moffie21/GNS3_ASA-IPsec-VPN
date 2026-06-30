@@ -50,14 +50,16 @@ Built and configured a logical topology featuring ASA and IPsec VPN protocols in
 ***
 ***
 ## CONFIGURATIONS
-- ISP
+- [ISP](*isp)
 - [LA Network](#la-network)
 - [SD Network](#sd-network)
 - [SF Network](#sf-network)
 - [NY Network](#ny-network)
 - [MI Network](#mi-network)
 
-**ISP_3650_R (L3) device**
+## ISP
+### ISP_3650_R
+(L3) device
 ```
 hostname ISP_3650_R
 no ip routing
@@ -90,14 +92,17 @@ line vty 0 4
  login local
  transport input ssh
 ```
+[CONFIGURATIONS](#configurations) - [LA Network](#la-network) - [SD Network](#sd-network) - [SF Network](#sf-network) - [NY Network](#ny-network) - [MI Network](#mi-network)
+  
 ***
 ## LA Network
-**LA_3650_WAN (L2) device**
+### LA_3650_WAN
+(L2) device
 ```
 hostname LA_3650_WAN
 no ip routing
 ```
-[LA_ASA1](#la-asa1) - [LA_ASA2](#la-asa2) - [LA_3650](#la-3650) - [LA_Server_20](#la-server-20) - [LA_IT_30](#la-it-30) - [LA_3650_DMZ](#la-3650-dmz) - [DMZ_SRV](#dmz-srv) - [LA_2960](#la-2960) - [LA_Users_40](#la-users-40) - [LA_Wireless_50](#la-wireless-50)
+[LA_3650_WAN](#la-3650-wan) - [LA_ASA1](#la-asa1) - [LA_ASA2](#la-asa2) - [LA_3650](#la-3650) - [LA_Server_20](#la-server-20) - [LA_IT_30](#la-it-30) - [LA_3650_DMZ](#la-3650-dmz) - [DMZ_SRV](#dmz-srv) - [LA_2960](#la-2960) - [LA_Users_40](#la-users-40) - [LA_Wireless_50](#la-wireless-50)
 [CONFIGURATIONS](#configurations) - [SD Network](#sd-network) - [SF Network](#sf-network) - [NY Network](#ny-network) - [MI Network](#mi-network)
   
 ### LA_ASA1
@@ -258,9 +263,11 @@ router ospf 10
  network 10.10.250.0 255.255.255.248 area 0
  network 192.168.250.0 255.255.255.0 area 0
 ```
-
+[LA_3650_WAN](#la-3650-wan) - [LA_ASA1](#la-asa1) - [LA_ASA2](#la-asa2) - [LA_3650](#la-3650) - [LA_Server_20](#la-server-20) - [LA_IT_30](#la-it-30) - [LA_3650_DMZ](#la-3650-dmz) - [DMZ_SRV](#dmz-srv) - [LA_2960](#la-2960) - [LA_Users_40](#la-users-40) - [LA_Wireless_50](#la-wireless-50)
+[CONFIGURATIONS](#configurations) - [SD Network](#sd-network) - [SF Network](#sf-network) - [NY Network](#ny-network) - [MI Network](#mi-network)
   
-**LA_ASA2 (5506) (L3) (Standby) device**
+### LA_ASA2 
+(5506) (L3) (Standby)
 ```
 enable password P@ssw0rd
 !
@@ -306,9 +313,11 @@ failover interface ip STATEFUL 172.16.1.1 255.255.255.0 standby 172.16.1.2
 failover key CIS101101
 failover
 ```
-
+[LA_3650_WAN](#la-3650-wan) - [LA_ASA1](#la-asa1) - [LA_ASA2](#la-asa2) - [LA_3650](#la-3650) - [LA_Server_20](#la-server-20) - [LA_IT_30](#la-it-30) - [LA_3650_DMZ](#la-3650-dmz) - [DMZ_SRV](#dmz-srv) - [LA_2960](#la-2960) - [LA_Users_40](#la-users-40) - [LA_Wireless_50](#la-wireless-50)
+[CONFIGURATIONS](#configurations) - [SD Network](#sd-network) - [SF Network](#sf-network) - [NY Network](#ny-network) - [MI Network](#mi-network)
   
-**LA_3650 (L3/L2) (VTP Server) (Inter-VLAN Routing) device**
+### LA_3650
+(L3/L2) (VTP Server) (Inter-VLAN Routing)
 ```
 hostname LA_3650
 ip routing
@@ -420,23 +429,26 @@ line vty 0 4
  login local
  transport input ssh
 ```
-
+[LA_3650_WAN](#la-3650-wan) - [LA_ASA1](#la-asa1) - [LA_ASA2](#la-asa2) - [LA_3650](#la-3650) - [LA_Server_20](#la-server-20) - [LA_IT_30](#la-it-30) - [LA_3650_DMZ](#la-3650-dmz) - [DMZ_SRV](#dmz-srv) - [LA_2960](#la-2960) - [LA_Users_40](#la-users-40) - [LA_Wireless_50](#la-wireless-50)
+[CONFIGURATIONS](#configurations) - [SD Network](#sd-network) - [SF Network](#sf-network) - [NY Network](#ny-network) - [MI Network](#mi-network)
   
 **LA_Server_20 Server VPC**
 ```
 set pcname LA_Server_20
 ip 10.10.64.254/23 10.10.64.1
 ```
-
   
-**LA_IT_30 VPC**
+### LA_IT_30
+VPC
 ```
 set pcname LA_IT_30
 ip 10.10.96.100/23 10.10.96.1
 ```
-
+[LA_3650_WAN](#la-3650-wan) - [LA_ASA1](#la-asa1) - [LA_ASA2](#la-asa2) - [LA_3650](#la-3650) - [LA_Server_20](#la-server-20) - [LA_IT_30](#la-it-30) - [LA_3650_DMZ](#la-3650-dmz) - [DMZ_SRV](#dmz-srv) - [LA_2960](#la-2960) - [LA_Users_40](#la-users-40) - [LA_Wireless_50](#la-wireless-50)
+[CONFIGURATIONS](#configurations) - [SD Network](#sd-network) - [SF Network](#sf-network) - [NY Network](#ny-network) - [MI Network](#mi-network)
   
-**LA_3650_DMZ (L2 only) device**
+### LA_3650_DMZ
+(L2 only)
 ```
 hostname LA_3650_DMZ
 no ip routing
@@ -466,16 +478,20 @@ line vty 0 4
  login local
  transport input ssh
 ```
-
+[LA_3650_WAN](#la-3650-wan) - [LA_ASA1](#la-asa1) - [LA_ASA2](#la-asa2) - [LA_3650](#la-3650) - [LA_Server_20](#la-server-20) - [LA_IT_30](#la-it-30) - [LA_3650_DMZ](#la-3650-dmz) - [DMZ_SRV](#dmz-srv) - [LA_2960](#la-2960) - [LA_Users_40](#la-users-40) - [LA_Wireless_50](#la-wireless-50)
+[CONFIGURATIONS](#configurations) - [SD Network](#sd-network) - [SF Network](#sf-network) - [NY Network](#ny-network) - [MI Network](#mi-network)
   
-**DMZ_SRV Server VPC**
+### DMZ_SRV Server
+VPC
 ```
 set pcname DMZ_SRV
 ip 192.168.250.254/24 192.168.250.1
 ```
-
+[LA_3650_WAN](#la-3650-wan) - [LA_ASA1](#la-asa1) - [LA_ASA2](#la-asa2) - [LA_3650](#la-3650) - [LA_Server_20](#la-server-20) - [LA_IT_30](#la-it-30) - [LA_3650_DMZ](#la-3650-dmz) - [DMZ_SRV](#dmz-srv) - [LA_2960](#la-2960) - [LA_Users_40](#la-users-40) - [LA_Wireless_50](#la-wireless-50)
+[CONFIGURATIONS](#configurations) - [SD Network](#sd-network) - [SF Network](#sf-network) - [NY Network](#ny-network) - [MI Network](#mi-network)
   
-**LA_2960 (L2) (VTP Client) device**
+### LA_2960
+(L2) (VTP Client)
 ```
 hostname LA_2960
 no ip routing
@@ -510,17 +526,22 @@ interface g3/0
  switchport access vlan 50
  no shutdown
 ```
-  
+[LA_3650_WAN](#la-3650-wan) - [LA_ASA1](#la-asa1) - [LA_ASA2](#la-asa2) - [LA_3650](#la-3650) - [LA_Server_20](#la-server-20) - [LA_IT_30](#la-it-30) - [LA_3650_DMZ](#la-3650-dmz) - [DMZ_SRV](#dmz-srv) - [LA_2960](#la-2960) - [LA_Users_40](#la-users-40) - [LA_Wireless_50](#la-wireless-50)
+[CONFIGURATIONS](#configurations) - [SD Network](#sd-network) - [SF Network](#sf-network) - [NY Network](#ny-network) - [MI Network](#mi-network)
    
-**LA_Users_40 VPC**
+### LA_Users_40
+VPC
 ```
 set pcname LA_Users_40
 ip 10.10.160.101/20 10.10.160.1
 ```
   
-  
-**LA_Wireless_50 VPC**
+### LA_Wireless_50
+VPC
 ```
 set pcname LA_Wireless_50
 ip 10.10.192.101/19 10.10.192.1
 ```
+[LA_3650_WAN](#la-3650-wan) - [LA_ASA1](#la-asa1) - [LA_ASA2](#la-asa2) - [LA_3650](#la-3650) - [LA_Server_20](#la-server-20) - [LA_IT_30](#la-it-30) - [LA_3650_DMZ](#la-3650-dmz) - [DMZ_SRV](#dmz-srv) - [LA_2960](#la-2960) - [LA_Users_40](#la-users-40) - [LA_Wireless_50](#la-wireless-50)
+[CONFIGURATIONS](#configurations) - [SD Network](#sd-network) - [SF Network](#sf-network) - [NY Network](#ny-network) - [MI Network](#mi-network)
+***
