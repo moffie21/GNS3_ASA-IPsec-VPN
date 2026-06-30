@@ -432,7 +432,8 @@ line vty 0 4
 [LA_3650_WAN](#la_3650_wan) | [LA_ASA1](#la_asa1) | [LA_ASA2](#la_asa2) | [LA_3650](#la_3650) | [LA_Server_20](#la_server_20) | [LA_IT_30](#la_it_30) | [LA_3650_DMZ](#la_3650_dmz) | [DMZ_SRV](#dmz_srv) | [LA_2960](#la_2960) | [LA_Users_40](#la_users_40) | [LA_Wireless_50](#la_wireless_50)  
 [Topology](#topology) | [SD Network](#sd-network) | [SF Network](#sf-network) | [NY Network](#ny-network) | [MI Network](#mi-network)
   
-**LA_Server_20 Server VPC**
+### LA_Server_20 
+Server VPC
 ```
 set pcname LA_Server_20
 ip 10.10.64.254/23 10.10.64.1
@@ -444,7 +445,7 @@ VPC
 set pcname LA_IT_30
 ip 10.10.96.100/23 10.10.96.1
 ```
-[LA_3650_WAN](#la-3650-wan) | [LA_ASA1](#la-asa1) | [LA_ASA2](#la-asa2) | [LA_3650](#la-3650) | [LA_Server_20](#la-server-20) | [LA_IT_30](#la-it-30) | [LA_3650_DMZ](#la-3650-dmz) | [DMZ_SRV](#dmz-srv) | [LA_2960](#la-2960) | [LA_Users_40](#la-users-40) | [LA_Wireless_50](#la-wireless-50)  
+[LA_3650_WAN](#la_3650_wan) | [LA_ASA1](#la_asa1) | [LA_ASA2](#la_asa2) | [LA_3650](#la_3650) | [LA_Server_20](#la_server_20) | [LA_IT_30](#la_it_30) | [LA_3650_DMZ](#la_3650_dmz) | [DMZ_SRV](#dmz_srv) | [LA_2960](#la_2960) | [LA_Users_40](#la_users_40) | [LA_Wireless_50](#la_wireless_50)  
 [Topology](#topology) | [SD Network](#sd-network) | [SF Network](#sf-network) | [NY Network](#ny-network) | [MI Network](#mi-network)
   
 ### LA_3650_DMZ
@@ -481,8 +482,8 @@ line vty 0 4
 [LA_3650_WAN](#la_3650_wan) | [LA_ASA1](#la_asa1) | [LA_ASA2](#la_asa2) | [LA_3650](#la_3650) | [LA_Server_20](#la_server_20) | [LA_IT_30](#la_it_30) | [LA_3650_DMZ](#la_3650_dmz) | [DMZ_SRV](#dmz_srv) | [LA_2960](#la_2960) | [LA_Users_40](#la_users_40) | [LA_Wireless_50](#la_wireless_50)  
 [Topology](#topology) | [SD Network](#sd-network) | [SF Network](#sf-network) | [NY Network](#ny-network) | [MI Network](#mi-network)
   
-### DMZ_SRV Server
-VPC
+### DMZ_SRV
+Server VPC
 ```
 set pcname DMZ_SRV
 ip 192.168.250.254/24 192.168.250.1
