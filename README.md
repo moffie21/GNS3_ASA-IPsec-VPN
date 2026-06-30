@@ -1,16 +1,16 @@
-# GNS3: Configuring ASA AND IPsec VPN
-### INTENTION
+# GNS3: Configuring ASA and IPsec VPN
+## INTENTION
 For educational purposes showcasing my technical networking abilities.
-
-### DESCRIPTION
+  
+## DESCRIPTION
 Built and configured a logical topology featuring ASA and IPsec VPN protocols in GNS3 lab environment.
-
-### GOALS
+  
+## GOALS
 - Allow DMZ devices to ping devices in LA network.
 - Successfully have each L3 device, except ISP; SF; and MI, learn single-area OSPF routes.
 - Successfully SSH from a L2 or L3 device to LA_3650_DMZ and, or LA_3650 devices.
-
-### PROTOCOLS IMPLEMENTED
+  
+## PROTOCOLS IMPLEMENTED
 - Subnetting one /8 organization into 5 /16 city branches (LA, SD, SF, NY, MI) down to /30 subnets
 - VLANs
 - VTP
@@ -21,17 +21,17 @@ Built and configured a logical topology featuring ASA and IPsec VPN protocols in
 - Site-to-Site IPsec VPN (LA and NY, LA and SD, SD and SF, NY and MI)
 - OSPF (single-area) (not for ISP_3650_R, FW_SF_R, FW_MI_R)
 - Basic Security and SSH
-
-### CHALLENGES
+  
+## CHALLENGES
 - Getting NAT and ACLs correct so they don't interfere with other protocols.
-
-### TOPOLOGY
+  
+## TOPOLOGY
 ```
  ISP_3650_R  ➔  LA_3650_WAN  ➔   LA_ASA1  ⤵  
                                               LA_3650_DMZ   ➔  DMZ_SRV  
                            (Failover) ↕     ╳  
                                                LA_3650      ➔  LA_Server_20  
-                              ➔   LA_ASA2   ⤴              ➔  LA_IT_30  
+                              ➔   LA_ASA2  ⤴               ➔  LA_IT_30  
                                                             ➔  LA_2960      ➔  LA_Users_40  
                                                                              ➔  LA_Wireless_50  
   
@@ -44,17 +44,18 @@ Built and configured a logical topology featuring ASA and IPsec VPN protocols in
              ➔     NY_ASA    ➔   NY_3650   ➔   NY_2960    ➔  NY_User_40  
                                                             ➔  NY_Wireless_50  
  
-            ➔     FW_MI_R   ➔  MI_2960_1  ➔  MI_2960_2   ➔  MI_User_40  
-                                                           ➔  MI_Wireless_50
+             ➔     FW_MI_R   ➔  MI_2960_1  ➔  MI_2960_2   ➔  MI_User_40  
+                                                            ➔  MI_Wireless_50
 ```
 ***
-### CONFIGURATIONS
+***
+## CONFIGURATIONS
 - ISP
-- LA Network
-- SD Network
-- SF Network
-- NY Network
-- MI Network
+- [LA Network](#la-network)
+- [SD Network](#sd-network)
+- [SF Network](#sf-network)
+- [NY Network](#ny-network)
+- [MI Network](#mi-network)
 
 **ISP_3650_R (L3) device**
 ```
@@ -88,18 +89,19 @@ username admin privilege 15 secret LabPass061
 line vty 0 4
  login local
  transport input ssh
-!
 ```
-
-### CONFIGURATIONS: LA NETWORK
+***
+## LA Network
 **LA_3650_WAN (L2) device**
 ```
 hostname LA_3650_WAN
 no ip routing
 ```
-
+[LA_ASA1](#la-asa1) - [LA_ASA2](#la-asa2) - [LA_3650](#la-3650) - [LA_Server_20](#la-server-20) - [LA_IT_30](#la-it-30) - [LA_3650_DMZ](#la-3650-dmz) - [DMZ_SRV](#dmz-srv) - [LA_2960](#la-2960) - [LA_Users_40](#la-users-40) - [LA_Wireless_50](#la-wireless-50)
+[CONFIGURATIONS](#configurations) - [SD Network](#sd-network) - [SF Network](#sf-network) - [NY Network](#ny-network) - [MI Network](#mi-network)
   
-**LA_ASA1 (5506) (L3) (Active) device**
+### LA_ASA1
+(5506) (L3) (Active)
 ```
 enable password P@ssw0rd
 !
@@ -463,7 +465,6 @@ username admin privilege 15 secret LabPass061
 line vty 0 4
  login local
  transport input ssh
-!
 ```
 
   
@@ -508,16 +509,15 @@ interface g3/0
  switchport mode access
  switchport access vlan 50
  no shutdown
-!
 ```
-
+  
    
 **LA_Users_40 VPC**
 ```
 set pcname LA_Users_40
 ip 10.10.160.101/20 10.10.160.1
 ```
-
+  
   
 **LA_Wireless_50 VPC**
 ```
